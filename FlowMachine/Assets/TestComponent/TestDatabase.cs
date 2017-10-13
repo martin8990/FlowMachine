@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class ComponentDatabase : ScriptableObject
 {
     public abstract bool HasComponent(int Id);
+    public abstract void AddComponent(int Id);
 }
 [CreateAssetMenu]
 public class TestDatabase : ComponentDatabase
@@ -23,8 +24,6 @@ public class TestDatabase : ComponentDatabase
     public List<TestComponent> testComponents = new List<TestComponent>();
     public Dictionary<int, TestComponent> LookUpTable = new Dictionary<int, TestComponent>();
 
-    
-
     public void load()
     {
         LookUpTable = new Dictionary<int, TestComponent>();
@@ -39,5 +38,10 @@ public class TestDatabase : ComponentDatabase
         return LookUpTable.ContainsKey(Id);
     }
 
-    
+    public override void AddComponent(int Id)
+    {
+        var newTestComponent = new TestComponent();
+        LookUpTable.Add(Id, newTestComponent);
+
+    }
 }

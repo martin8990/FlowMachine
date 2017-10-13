@@ -1,21 +1,20 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
-
-public class Enviroment : MonoBehaviour {
-
-    public static Enviroment get
+public class Enviroment : MonoBehaviour
+{
+    public static Transform myTransform
     {
         get
         {
-            if (me==null)
-            {
-                me = GameObject.Find("Enviroment").GetComponent<Enviroment>();
-            }
-            return me;
+            
+            return tf;
         }
     }
-    static Enviroment me;
-    public List<Entity> entities = new List<Entity>();
+    static Transform tf;
+    private void Start()
+    {
+        tf = transform;
+    }
     
+
 }

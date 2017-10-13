@@ -1,26 +1,32 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu]
-public class Filter : Machine
+public class Filter : EntityTank
 {
+    public EntityTank FilterDrain;
     public List<ComponentDatabase> componentDBs;
+    public List<Entity> removedEntities;
 
     public Filtertype filtertype;
 
-    public override void Work()
+    public override void Operate(Entity entity)
     {
         foreach (var componentdB in componentDBs)
         {
-            for (int i = 0; i < myEntities.Count; i++)
+            if (filtertype == Filtertype.NOR)
             {
-                if (filtertype == Filtertype.NOR)
+                if (componentdB.HasComponent(entity.id))
                 {
-                    if (componentdB.HasComponent(myEntities[i].id))
-                    {
-                        myEntities.Remove(myEntities[i]);
-                    }
-                }                
+                    myEntities.Remove(entity);
+                    removedEntities.Add(entity);
+                }
             }
         }
     }
+    public override void Cleanup()
+    {
+        FilterDrain.LoadEntities(removedEntities);
+    }
 }
+
+

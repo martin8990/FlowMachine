@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
-public class EntityBehaviour : MonoBehaviour
+public class Entity : MonoBehaviour
 {
-    public Entity entity;
+    public int id;
+    public TestComponent testComponent {
+        get
+        {
+            return TestDatabase.get.LookUpTable[id];
+        }
+    }
 }
 
 
